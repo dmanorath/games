@@ -1,3 +1,8 @@
+/*
+	Description: TTT game
+	Author: Manorath Dhakal
+	Website: www.mrdhakal.com	
+*/
 var game = (function () {
     var player, play, board, displayBoard, gameContainer, loadGame, boardTable, winner, validateMove, playAgain;
     // player's display values
