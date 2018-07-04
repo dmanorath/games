@@ -15,20 +15,22 @@ var game = (function () {
         "use strict";
         var board;
         board = [];
-        board[0] = ' ';
-        board[1] = ' ';
-        board[2] = ' ';
-        board[3] = ' ';
-        board[4] = ' ';
-        board[5] = ' ';
-        board[6] = ' ';
-        board[7] = ' ';
-        board[8] = ' ';
     });
     // display board
     boardTable = (function () {
         "use strict";
         board();
+        if((typeof board[0] === "undefined") || (typeof board[1] === "undefined") || (typeof board[2] === "undefined") || (typeof board[3] === "undefined") || (typeof board[4] === "undefined") || (typeof board[5] === "undefined") || (typeof board[6] === "undefined") || (typeof board[7] === "undefined") || (typeof board[8] === "undefined")){
+            board[0] = ' ';
+            board[1] = ' '; 
+            board[2] = ' ';
+            board[3] = ' ';
+            board[4] = ' ';
+            board[5] = ' ';
+            board[6] = ' ';
+            board[7] = ' ';
+            board[8] = ' ';
+        }
         var b = '<table> <tr>' +
             '<td id="board0">' + board[0] + '</td>' +
             '<td id="board1">' + board[1] + '</td>' +
@@ -48,13 +50,14 @@ var game = (function () {
     // check illegal moves
     validateMove = (function (x) {
         var temp;
-         if(board[x] === 'X' || board[x] === 'O'){
+        if(board[x] === 'X' || board[x] === 'O'){
             temp = 'false';
-         }
+            //alert('Move is not valid');
+        }
         else{
             temp = 'true';
         }
-         return temp;
+        return temp;
     });
     
     //display board
@@ -67,45 +70,47 @@ var game = (function () {
         b = document.getElementById("board");
         b.innerHTML = boardTable();
         
+        var index;
+        do{
         //detect which element is clicked
         function clickedEl(event) {
           //while (board != null) {
-            var index;
-            if (event.target.id === 'board0') {
-                index = 0;
+           
+                if (event.target.id === 'board0') {
+                    index = 0;
+                }
+                else if (event.target.id === 'board1') {
+                    index = 1;
+                }
+                else if (event.target.id === 'board2') {
+                    index = 2;
+                }
+                else if (event.target.id === 'board3') {
+                    index = 3;
+                }
+                else if (event.target.id === 'board4') {
+                    index = 4;
+                }
+                else if (event.target.id === 'board5') {
+                    index = 5;
+                }
+                else if (event.target.id === 'board6') {
+                    index = 6;
+                }
+                else if (event.target.id === 'board7') {
+                    index = 7;
+                }
+                else if (event.target.id === 'board8') {
+                    index = 8;
+                }
             }
-            else if (event.target.id === 'board1') {
-                index = 1;
-            }
-            else if (event.target.id === 'board2') {
-                index = 2;
-            }
-            else if (event.target.id === 'board3') {
-                index = 3;
-            }
-            else if (event.target.id === 'board4') {
-                index = 4;
-            }
-            else if (event.target.id === 'board5') {
-                index = 5;
-            }
-            else if (event.target.id === 'board6') {
-                index = 6;
-            }
-            else if (event.target.id === 'board7') {
-                index = 7;
-            }
-            else if (event.target.id === 'board8') {
-                index = 8;
-            }
-            
-            while(validateMove(index) === 'true'){
-                board[index] = player.human;
-                var whoWin = winner();
-            }
-            
+            while(validateMove(index) != 'false');
+            //{
+            board[index] = player.human;
+            var whoWin = winner();
+          //  }
             //computer
-            var x = Math.floor((Math.random() * 9));               
+            var x = Math.floor((Math.random() * 9));              
             //if board's x index is already exist
             while(validateMove(x) === 'true'){
                 board[x] = player.computer;
@@ -116,12 +121,12 @@ var game = (function () {
             if(whoWin === 1) {
                    // document.getElementById("board").innerHTML = "You win!";
                 alert("You win!");
-                board = [];
-                playAgain();
+             //   board = [];
+               // playAgain();
             }
             else if(whoWin === 2) {
                 alert("Computer wins!");
-                board = [];
+             //   board = [];
             }
         }
 
